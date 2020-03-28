@@ -1,15 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Quicksand:wght@400;700&display=swap');
 /*https://www.schemecolor.com/css-family-blue.php*/
+
 :root {
   --blue-1: #3C99DC;
-  --blue-2: #66D3FA;
+  --blue-2: #7cbbe8;
   --blue-3: #D5F3FE;
   --blue-4: #2565AE;
   --blue-5: #0F5298;
 }
-.breath-pulser {
+
+#bootstrap-overrides {
+  font-family: 'Open Sans', sans-serif;
+}
+body, html {
+  height: 100%;
+}
+@keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+#bootstrap-overrides h1, h2, h3, h4, h5, h6 {
+  font-family: 'Quicksand', sans-serif;
+}
+
+#breath-pulser {
   position: absolute;
   top: 50%;
   left: 50%;
+  transform-origin: 50% 50%;
   transform: translate(-50%, -50%);
   width: 100px;
   height: 100px;
@@ -18,10 +37,14 @@
   animation-name: pulse;
   animation-duration: 10s;
   animation-iteration-count: infinite;
+  animation-play-state: paused;
 }
 @keyframes pulse {
-  40% {width: 200px; height: 200px;}
-  100% {width: 100px; height: 100px;}
+  40% {
+    transform: translate(-50%, -50%) scale(1.5); /*???*/
+  } 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 .above {
   position: absolute;
@@ -30,10 +53,18 @@
   text-align: center;
   transform: translate(-50%, -50%);
   animation: fadeIn ease 2s;
-  -webkit-animation: fadeIn ease 2s;
-  -moz-animation: fadeIn ease 2s;
-  -o-animation: fadeIn ease 2s;
-  -ms-animation: fadeIn ease 2s;
+}
+.below {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  text-align: center;
+  transform: translateX(-50%);
+  animation: fadeIn ease 2s;
+}
+#bootstrap-overrides #quote {
+  font-style: italic;
+  font-size: 1.5rem;
 }
 @keyframes fadeIn {
   0% {
@@ -44,59 +75,51 @@
   }
 }
 
-@-moz-keyframes fadeIn {
-  0% {
-    opacity:0;
-  }
-  100% {
-    opacity:1;
-  }
-}
-
-@-webkit-keyframes fadeIn {
-  0% {
-    opacity:0;
-  }
-  100% {
-    opacity:1;
-  }
-}
-
-@-o-keyframes fadeIn {
-  0% {
-    opacity:0;
-  }
-  100% {
-    opacity:1;
-  }
-}
-
-@-ms-keyframes fadeIn {
-  0% {
-    opacity:0;
-  }
-  100% {
-    opacity:1;
-  }
+.spike {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10%;
+  height: 4%;
+  transform-origin: -500% -50%;
+  background-color:#ccc;
 }
 
 #left-eye {
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 30%;
   transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
+  width: 10%;
+  height: 10%;
   border-radius: 50%;
   background-color: var(--blue-4);
 }
 #right-eye {
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 80%;
   transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
+  width: 10%;
+  height: 10%;
   border-radius: 50%;
   background-color: var(--blue-4);
+}
+#smile {
+  position: absolute;
+  top: 65%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+  height: 10%;
+  width: 20%;
+  border-radius: 50%;
+  border-bottom: var(--blue-5) 4px solid;
+}
+footer {
+  /*position: absolute;
+  bottom: 0;*/ /*So I commented the previous portion out because it got wack when I added this stylesheet to the main index*/
+  width: 100%;
+  height: 60px; /* Set the fixed height of the footer here */
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #bdbdbd;
 }
