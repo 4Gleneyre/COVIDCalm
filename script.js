@@ -1,3 +1,4 @@
+var breatheStatus = "Breathe in...";
 var quoteAuthors = [
   "President Franklin Roosevelt",
   "Erma Bombeck",
@@ -35,14 +36,21 @@ var quotes = [
 function startSession() {
   var pulser = document.getElementById("breath-pulser");
   pulser.style.animationPlayState = "running";
-  
-  //total 60 second session
   changeQuote();
   for (i=0; i<5; i++) {
-    setTimeout(changeQuote, i*10000);
+    window.setTimeout(changeQuote, i*10000);
+  }
+  for (i = 0; i < 13; i++) {
+    window.setTimeout(changeBreathe, i*5000);
   }
 }
-
+function changeBreathe() {
+  var breathe = document.getElementById("breathe");
+  breathe.innerHTML = breatheStatus;
+  if (breatheStatus.localeCompare("Breathe out...") == 0)
+  breatheStatus = "Breathe in...";
+  else breatheStatus = "Breathe out...";
+}
 function changeQuote() {
   var quote = document.getElementById("quote");
   var quoteAuthor = document.getElementById("quote-author");
@@ -54,7 +62,10 @@ function changeQuote() {
   quote.innerHTML = "\"" + randomQuote + "\"";
   
   var randomAuthor = quoteAuthors[randomNumber];
-  if (quoteAuthors != "") {
+  if (randomAuthor.localeCompare("") == 0) {
+    quoteAuthor.innerHTML = "";
+  }
+    else {
     quoteAuthor.innerHTML = "- " + randomAuthor;
   }
 
