@@ -14,13 +14,13 @@
   </head>
   <body id="bootstrap-overrides" class="container" style = " background: linear-gradient(45deg, var(--blue-2), var(--blue-3) 50%)">
     
-    <button type="button" class="btn btn-primary btn-lg" onclick="startSession()">
+    <button type="button" id="startBtn" onclick="checkRunning()" class="btn btn-primary btn-lg">
       Start session now
       <i class="fas fa-arrow-right"></i>
     </button>
 
     <div class = "above">
-      <h3 class="fadeIn" id = "breathe">Breathe calmly...</h3>
+      <h3 class="fadeIn" id="breathe">Breathe calmly...</h3>
     </div>
     <div id="breath-pulser">
       <div id="face">
@@ -45,9 +45,8 @@
     </div>
     <div class="below">
       <h3 id="quote"></h3>
-      <p id = "quote-author"></p>
+      <p id ="quote-author"></p>
     </div>
-
     <script src="script.js"></script>
   </body>
 </html>

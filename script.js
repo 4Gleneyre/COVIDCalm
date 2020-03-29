@@ -1,5 +1,4 @@
 var breatheStatus = "Breathe out...";
-var pulser = document.getElementById("breath-pulser");
 var quoteAuthors = [
   "President Franklin Roosevelt",
   "Erma Bombeck",
@@ -36,24 +35,63 @@ var quotes = [
 var quote = document.getElementById("quote");
 var quoteAuthor = document.getElementById("quote-author");
 var breathe = document.getElementById("breathe");
+var startBtn = document.getElementById("startBtn");
+ var pulser = document.getElementById("breath-pulser");
+var sessionRunning = false;
+//startBtn.object.addEventListener("click", checkRunning());
+function checkRunning() {
+  if (sessionRunning == false) {
+    startSession();
+  } else {
+    stopSession();
+  }
+}
 
 function startSession() {
+  sessionRunning = true;
   pulser.style.animation = "10s infinite pulse";
   breathe.style.animation = "fadeInUp 1s";
   quote.style.animation = "fadeInUp 1s";
   quoteAuthor.style.animation = "fadeInUp 1s";
+  startBtn.classList.remove("btn-primary");
+  startBtn.classList.add("btn-secondary");
+  startBtn.innerHTML = "<i class='fas fa-stop'></i> Stop session";
 
   changeQuote();
-  for (i=0; i<5; i++) {
+  for (i=0; i<6; i++) {
+    window.setTimeout(function() {
+      if (sessionRunning == true) {
+        changeQuote();
+        changeBreathe();
+      }
+      window.setTimeout(changeBreathe, 4000);
+    }, i*10000);
+  }
+  /*for (i=0; i<5; i++) {
+    if (sessionRunning == true) 
     window.setTimeout(changeQuote, i*10000);
   }
   for (i = 0; i < 13; i++) {
-    window.setTimeout(changeBreathe, i*5000); //One thing - is it possible for you to say breathe in during the first 4 seconds then breathe out for the next 6 seconds?
-  }
-  window.setTimeout(function() {pulser.style.animation = "5s ease-in-out infinite idle"}, 60000);
-  window.setTimeout(function() breathe.innerHTML = "Great job!  You're done!", 60000)
+    if (sessionRunning == true) 
+    window.setTimeout(changeBreathe, i*5000); 
+  }*/
+  //End Session
+  window.setTimeout(
+    function(){endSession()}, 60000);
 }
+function stopSession() {
+  sessionRunning = false;
+  pulser.style.animation = "5s ease-in-out infinite idle";
+  breathe.innerHTML = "Breathe calmly...";
+  quote.innerHTML = "";
+  quoteAuthor.innerHTML = "";
+  startBtn.classList.remove("btn-secondary");
+  startBtn.classList.add("btn-primary");
+  startBtn.innerHTML = "Start session now <i class='fas fa-arrow-right'></i>";
+}
+
 function changeBreathe() {
+ 
   if (breatheStatus.localeCompare("Breathe in...") == 0) {
     breatheStatus = "Breathe out...";
   } else {
@@ -77,7 +115,23 @@ function changeQuote() {
   }
   /*quote.style.animation = "fadeInUp reverse 0.5s";
   quoteAuthor.style.animation = "fadeInUp reverse 0.5s";
-  quote.style.animation = "fadeInUp 0.5s";
-  quoteAuthor.style.animation = "fadeInUp 0.5s";*/
+  setTimeout(function() {
+    quote.style.animation = "fadeInUp 0.5s";
+    quoteAuthor.style.animation = "fadeInUp 0.5s";
+  }, 500);*/
   //setTimeout(, i*10000);
+}
+
+function endSession() {
+  if (sessionRunning == true) {
+    pulser.style.animation = "5s ease-in-out infinite idle";
+    breathe.innerHTML = "Great job! You're done!";
+    quote.innerHTML = "Click \"Restart session\" if you need more peace!";
+    quoteAuthor.innerHTML = "";
+    startBtn.classList.remove("btn-secondary");
+    startBtn.classList.add("btn-primary");
+    startBtn.innerHTML = "Restart session <i class='fas fa-arrow-right'></i>";
+    /*quote.style.animation = "fadeInUp reverse 0.5s";
+    quoteAuthor.style.animation = "fadeInUp reverse 0.5s"*/
+  }
 }

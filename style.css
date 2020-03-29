@@ -7,6 +7,8 @@
   --blue-3: #D5F3FE;
   --blue-4: #2565AE;
   --blue-5: #0F5298;
+  --gray-1: #8c8c8c;
+  --gray-2: #b2b2b2;
   --trans-x: -300%;
 }
 
@@ -41,6 +43,23 @@ body, html {
 }
 #bootstrap-overrides .btn-primary:hover {
   background-position: 100%;
+}
+#bootstrap-overrides .btn-secondary {
+  background: linear-gradient(90deg, var(--gray-1), var(--gray-2));
+  background-size: 200%;
+  border: none;
+  transition: background-position 1s;
+}
+#bootstrap-overrides .btn-secondary:hover {
+  background-position: 100%;
+}
+
+#startBtn {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
 }
 .above {
   position: absolute;
