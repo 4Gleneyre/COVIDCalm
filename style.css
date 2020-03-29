@@ -7,6 +7,7 @@
   --blue-3: #D5F3FE;
   --blue-4: #2565AE;
   --blue-5: #0F5298;
+  --trans-x: -300%;
 }
 
 #bootstrap-overrides {
@@ -15,52 +16,47 @@
 body, html {
   height: 100%;
 }
-@keyframes AnimationName {
+/*@keyframes gradient-animation {
     0%{background-position:0% 50%}
     50%{background-position:100% 50%}
     100%{background-position:0% 50%}
-}
+}*/
 #bootstrap-overrides h1, h2, h3, h4, h5, h6 {
   font-family: 'Quicksand', sans-serif;
 }
 
-#breath-pulser {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform-origin: 50% 50%;
-  transform: translate(-50%, -50%);
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background: linear-gradient(var(--blue-3), var(--blue-1));
-  animation-name: pulse;
-  animation-duration: 10s;
-  animation-iteration-count: infinite;
-  animation-play-state: paused;
+#bootstrap-overrides .btn {
+  font-family: 'Quicksand', sans-serif;
 }
-@keyframes pulse {
-  40% {
-    transform: translate(-50%, -50%) scale(1.5); /*???*/
-  } 100% {
-    transform: translate(-50%, -50%) scale(1);
-  }
+#bootstrap-overrides .btn-lg {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border-radius: 8rem;
+}
+#bootstrap-overrides .btn-primary {
+  background: linear-gradient(90deg, var(--blue-1), var(--blue-2));
+  background-size: 200%;
+  border: none;
+  transition: background-position 1s;
+}
+#bootstrap-overrides .btn-primary:hover {
+  background-position: 100%;
 }
 .above {
   position: absolute;
-  top: 30%;
+  top: 50%;
   left: 50%;
   text-align: center;
-  transform: translate(-50%, -50%);
-  animation: fadeIn ease 2s;
+  transform: translate(-50%, -150px);
+  animation: fadeInUp 2s;
 }
 .below {
   position: absolute;
-  top: 65%;
+  top: 50%;
   left: 50%;
   text-align: center;
-  transform: translateX(-50%);
-  animation: fadeIn ease 2s;
+  transform: translate(-50%, 125px);
+  animation: fadeIn 2s;
 }
 #bootstrap-overrides #quote {
   font-style: italic;
@@ -74,15 +70,67 @@ body, html {
     opacity:1;
   }
 }
+@keyframes fadeInUp {
+  0% {
+    margin-top: 20px;
+    opacity:0;
+  }
+  100% {
+    margin-top: 0;
+    opacity:1;
+  }
+}
+
+#breath-pulser {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 50% 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(var(--blue-3), var(--blue-1));
+  animation: 5s ease-in-out infinite idle;
+  /*animation-name: idle;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  animation-play-state: running;*/
+  /*animation: 10s infinite pulse;*/
+}
+@keyframes pulse {
+  40% {
+    transform: translate(-50%, -50%) scale(1.5);
+  } 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+@keyframes idle {
+  50% {
+    transform: translate(-50%, -60%);
+  } 100% {
+    transform: translate(-50%, -50%);
+  }
+}
 
 .spike {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 10%;
-  height: 4%;
-  transform-origin: -500% -50%;
-  background-color:#ccc;
+  width: 20%;
+  height: 5%;
+  transform-origin: 300% 50%;
+  background: linear-gradient(-90deg, var(--blue-2), var(--blue-4));
+}
+.spike::after {
+  content: " ";
+  display: block;
+  width: 8px;
+  height: 10px;
+  border-radius: 50%;
+  transform: translate(-90%, -25%);
+  background: linear-gradient(-90deg, var(--blue-4), var(--blue-5));
 }
 
 #left-eye {
@@ -94,6 +142,7 @@ body, html {
   height: 10%;
   border-radius: 50%;
   background-color: var(--blue-4);
+  animation: idle-eyes ease 8s infinite;
 }
 #right-eye {
   position: absolute;
@@ -104,7 +153,52 @@ body, html {
   height: 10%;
   border-radius: 50%;
   background-color: var(--blue-4);
+  animation: idle-eyes ease 8s infinite;
 }
+
+@keyframes idle-eyes {
+  30% {
+    transform: translate(-50%, -50%) scaleY(1);
+    border-radius: 50%;
+  } 35% {
+    transform: translate(-50%, -50%) scaleY(0.5);
+    border-radius: 50% 50% 0 0;
+  } 40% {
+    transform: translate(-50%, -50%) scaleY(1);
+    border-radius: 50%;
+  } 55% {
+    transform: translate(-50%, -50%) scaleY(1);
+    border-radius: 50%;
+  } 60% {
+    transform: translate(-50%, -50%) scaleY(0.5);
+    border-radius: 50% 50% 0 0;
+  } 65% {
+    transform: translate(-50%, -50%) scaleY(1);
+    border-radius: 50%;
+  }
+}
+@keyframes pulse-eyes {
+  30% {
+    transform: translate(-50%, -50%) scaleY(1);
+    border-radius: 50%;
+  } 35% {
+    transform: translate(-50%, -50%) scaleY(0.5);
+    border-radius: 50% 50% 0 0;
+  } 40% {
+    transform: translate(-50%, -50%) scaleY(1);
+    border-radius: 50%;
+  } 55% {
+    transform: translate(-50%, -50%) scaleY(1);
+    border-radius: 50%;
+  } 60% {
+    transform: translate(-50%, -50%) scaleY(0.5);
+    border-radius: 50% 50% 0 0;
+  } 65% {
+    transform: translate(-50%, -50%) scaleY(1);
+    border-radius: 50%;
+  }
+}
+
 #smile {
   position: absolute;
   top: 65%;

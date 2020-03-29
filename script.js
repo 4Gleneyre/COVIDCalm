@@ -1,4 +1,5 @@
-var breatheStatus = "Breathe in...";
+var breatheStatus = "Breathe out...";
+var pulser = document.getElementById("breath-pulser");
 var quoteAuthors = [
   "President Franklin Roosevelt",
   "Erma Bombeck",
@@ -14,8 +15,7 @@ var quoteAuthors = [
   "Baloo the bear",
   "Johann Wolfgang von Goethe",
   "Friedrich Nietzsche",
-  "Eckhart Tolle"
-  ];
+  "Eckhart Tolle"];
 var quotes = [
   "The only thing we have to fear is fear itself",
   "Worry is like a rocking chair: It gives you something to do but never gets you anywhere",
@@ -31,30 +31,37 @@ var quotes = [
   "The simple bare necessities. Forget about your worries and your strife ... The bare necessities of life will come to you",
   "Let everyone sweep in front of his own door, and the whole world will be clean",
   "That which does not kill us, makes us stronger",
-  "Life will give you whatever experience is most helpful for the evolution of your consciousness"
-  ];
+  "Life will give you whatever experience is most helpful for the evolution of your consciousness"];
+
+var quote = document.getElementById("quote");
+var quoteAuthor = document.getElementById("quote-author");
+var breathe = document.getElementById("breathe");
+
 function startSession() {
-  var pulser = document.getElementById("breath-pulser");
-  pulser.style.animationPlayState = "running";
+  pulser.style.animation = "10s infinite pulse";
+  breathe.style.animation = "fadeInUp 1s";
+  quote.style.animation = "fadeInUp 1s";
+  quoteAuthor.style.animation = "fadeInUp 1s";
+
   changeQuote();
   for (i=0; i<5; i++) {
     window.setTimeout(changeQuote, i*10000);
   }
   for (i = 0; i < 13; i++) {
-    window.setTimeout(changeBreathe, i*5000);
+    window.setTimeout(changeBreathe, i*5000); //One thing - is it possible for you to say breathe in during the first 4 seconds then breathe out for the next 6 seconds?
   }
+  window.setTimeout(function() {pulser.style.animation = "5s ease-in-out infinite idle"}, 60000);
+  window.setTimeout(function() breathe.innerHTML = "Great job!  You're done!", 60000)
 }
 function changeBreathe() {
-  var breathe = document.getElementById("breathe");
+  if (breatheStatus.localeCompare("Breathe in...") == 0) {
+    breatheStatus = "Breathe out...";
+  } else {
+    breatheStatus = "Breathe in...";
+  }
   breathe.innerHTML = breatheStatus;
-  if (breatheStatus.localeCompare("Breathe out...") == 0)
-  breatheStatus = "Breathe in...";
-  else breatheStatus = "Breathe out...";
 }
 function changeQuote() {
-  var quote = document.getElementById("quote");
-  var quoteAuthor = document.getElementById("quote-author");
-
   var randomNumber = Math.floor(Math.random() * (quotes.length-1))
   
   var randomQuote = quotes[randomNumber];
@@ -68,6 +75,9 @@ function changeQuote() {
     else {
     quoteAuthor.innerHTML = "- " + randomAuthor;
   }
-
+  /*quote.style.animation = "fadeInUp reverse 0.5s";
+  quoteAuthor.style.animation = "fadeInUp reverse 0.5s";
+  quote.style.animation = "fadeInUp 0.5s";
+  quoteAuthor.style.animation = "fadeInUp 0.5s";*/
   //setTimeout(, i*10000);
 }
