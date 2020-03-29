@@ -27,6 +27,9 @@ body, html {
   font-family: 'Quicksand', sans-serif;
 }
 
+.jumbotron {
+  background: linear-gradient(45deg, var(--blue-2), var(--blue-3) 50%);
+}
 #bootstrap-overrides .btn {
   font-family: 'Quicksand', sans-serif;
 }
