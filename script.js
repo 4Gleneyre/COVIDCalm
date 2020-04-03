@@ -1,36 +1,74 @@
 var breatheStatus = "Breathe out...";
 var quoteAuthors = [
-  "President Franklin Roosevelt",
-  "Erma Bombeck",
-  "Marie Curie",
   "",
+  "President Franklin Roosevelt",
   "Baz Luhrmann",
   "Matt Charman",
+  "Erma Bombeck",
+  "Marie Curie",
+  "Bobby McFerrin",
   "Bob Marley",
+  "Marla Gibbs",
+  "\"I Heart Huckabees\"",
+  "Eddie Izzard",
+  "Fred Rogers",
   "Angela Lansbury",
   "Vivian Greene",
   "Sting",
-  "Rolling Stones",
-  "Baloo the bear",
+  "The Rolling Stones",
+  "Baloo the Bear, \"The Jungle Book\"",
   "Johann Wolfgang von Goethe",
   "Friedrich Nietzsche",
-  "Eckhart Tolle"];
+  "Eckhart Tolle",
+  "Etienne de Grellet",
+  "Winston Churchill",
+  "Matthew McConaughey in \"Dazed and Confused\"",
+  "Persian adage",
+  "Buddha",
+  "Lisa Wingate",
+  "Chuck Noland, \"Cast Away\"",
+  "John Lennon",
+  "Eleanor Roosevelt",
+  "Mattie Stepanek",
+  "Mother Teresa",
+  "Theordore Roosevelt",
+  "Allen Klein"
+];
 var quotes = [
-  "The only thing we have to fear is fear itself",
-  "Worry is like a rocking chair: It gives you something to do but never gets you anywhere",
-  "Nothing in life is to be feared, it is only to be understood. Now is the time to understand more, so that we may fear less",
   "Keep calm and carry on",
-  "A life lived in fear is a life half lived",
-  "Aren't you worried?  Would that help?",
+  "The only thing we have to fear is fear itself",
+  "A life lived in fear is a life half lived:",
+  "Aren't you worried? Would that help?",
+  "Worry is like a rocking chair: It gives you something to do but never gets you anywhere",
+  "Nothing in life is to be feared, it is only to be understood. Now is the time to understand more, so that we may fear less.",
+  "Don't worry, be happy",
   "Don't worry 'bout a thing, cause every little thing's gonna be alright.",
+  "Things could always be better, but things could always be worse",
+  "Nothing's okay. So it's okay.",
+  "I like to think of life as an adventure, like a roller coaster. It helps with the ups and downs.",
+  "Often when you think you're at the end of something, you're at the beginning of something else.",
   "Better to be busy than to be busy worrying",
   "Life isn't about waiting for the storm to pass. It's about learning how to dance in the rain.",
   "When the world is running down, you make the best of what's still around.",
   "You can't always get what you want. But if you try sometime, you'll find, you get what you need",
   "The simple bare necessities. Forget about your worries and your strife ... The bare necessities of life will come to you",
-  "Let everyone sweep in front of his own door, and the whole world will be clean",
+  "Let everyone sweep in front of his own door, and the whole world will be clean.",
   "That which does not kill us, makes us stronger",
-  "Life will give you whatever experience is most helpful for the evolution of your consciousness"];
+  "Life will give you whatever experience is most helpful for the evolution of your consciousness.",
+  "I shall pass this way but once; any good that I can do or any kindness I can show to any human being; let me do it now",
+  "If you're going through hell, keep going",
+  "You just gotta keep livin' man, L-I-V-I-N",
+  "This too shall pass",
+  "Praise and blame, gain and loss, pleasure and sorrow come and go like the wind.",
+  "Dawn comes after the darkness",
+  "I know what I have to do now, I've got to keep breathing because tomorrow the sun will rise. Who knows what the tide could bring?",
+  "Everything will be okay in the end. If it's not okay, it's not the end.",
+  "With the new day comes new strength and new thoughts.",
+  "Unity is strength... when there is teamwork and collaboration, wonderful things can be achieved.",
+  "Be faithful in small things because it is in them that your strength lies.",
+  "Do what you can, with what you have, where you are.",
+  "Your attitude is like a box of crayons that color your world. Constantly color your picture gray, and your picture will always be bleak. Try adding some bright colors to the picture by including humor, and your picture begins to lighten up."
+];
 
 var quote = document.getElementById("quote");
 var quoteAuthor = document.getElementById("quote-author");
@@ -68,12 +106,12 @@ function startSession() {
     }, i*10000);
   }
   /*for (i=0; i<5; i++) {
-    if (sessionRunning == true) 
+    if (sessionRunning == true)
     window.setTimeout(changeQuote, i*10000);
   }
   for (i = 0; i < 13; i++) {
-    if (sessionRunning == true) 
-    window.setTimeout(changeBreathe, i*5000); 
+    if (sessionRunning == true)
+    window.setTimeout(changeBreathe, i*5000);
   }*/
   //End Session
   window.setTimeout(
@@ -91,7 +129,7 @@ function stopSession() {
 }
 
 function changeBreathe() {
- 
+
   if (breatheStatus.localeCompare("Breathe in...") == 0) {
     breatheStatus = "Breathe out...";
   } else {
@@ -101,11 +139,11 @@ function changeBreathe() {
 }
 function changeQuote() {
   var randomNumber = Math.floor(Math.random() * (quotes.length-1))
-  
+
   var randomQuote = quotes[randomNumber];
   if (randomQuote.length >= 75) {quote.style.fontSize="1.25rem";} else {quote.style.fontSize="1.5rem";}
   quote.innerHTML = "\"" + randomQuote + "\"";
-  
+
   var randomAuthor = quoteAuthors[randomNumber];
   if (randomAuthor.localeCompare("") == 0) {
     quoteAuthor.innerHTML = "";
