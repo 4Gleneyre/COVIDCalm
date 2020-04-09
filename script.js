@@ -1,4 +1,7 @@
-var breatheStatus = "Breathe out...";
+// https://www.cnn.com/2020/03/26/health/inspirational-quotes-coronavirus-wisdom-project-wellness/index.html
+var opt1 = 2;
+var opt2 = 5;
+var time = 1;
 var quoteAuthors = [
   "",
   "President Franklin Roosevelt",
@@ -70,13 +73,33 @@ var quotes = [
   "Your attitude is like a box of crayons that color your world. Constantly color your picture gray, and your picture will always be bleak. Try adding some bright colors to the picture by including humor, and your picture begins to lighten up."
 ];
 
+// https://obscurejavascript.tumblr.com/post/183031058225/how-to-clear-all-timeouts-in-javascript
+function createClearAllTimeouts() {
+  const noop = () => {};
+  let firstId = setTimeout(noop, 0);
+
+  return () => {
+    const lastId = setTimeout(noop, 0);
+    while (firstId !== lastId) {
+      firstId += 1;
+      clearTimeout(firstId);
+    }
+  };
+};
+const clearAllTimeouts = createClearAllTimeouts();
+
 var quote = document.getElementById("quote");
 var quoteAuthor = document.getElementById("quote-author");
-var breathe = document.getElementById("breathe");
+var breathe = document.getElementById("breathe-svg");
+var breatheText = document.getElementById("breathe-text");
+var breatheDone = document.getElementById("breathe-done");
 var startBtn = document.getElementById("startBtn");
- var pulser = document.getElementById("breath-pulser");
+var pulser = document.getElementById("breath-pulser");
+var leftEye = document.getElementById("left-eye");
+var rightEye = document.getElementById("right-eye");
+var smile = document.getElementById("smile");
 var sessionRunning = false;
-//startBtn.object.addEventListener("click", checkRunning());
+var dropBtn = document.getElementById("dropBtn");
 function checkRunning() {
   if (sessionRunning == false) {
     startSession();
@@ -87,40 +110,41 @@ function checkRunning() {
 
 function startSession() {
   sessionRunning = true;
+  dropBtn.style.display = "none";
+  breathe.style.display = "block";
   pulser.style.animation = "10s infinite pulse";
-  breathe.style.animation = "fadeInUp 1s";
-  quote.style.animation = "fadeInUp 1s";
-  quoteAuthor.style.animation = "fadeInUp 1s";
+  leftEye.style.animation = "pulse-eyes 10s infinite";
+  rightEye.style.animation = "pulse-eyes 10s infinite";
+  smile.classList.add("smile-animated");
   startBtn.classList.remove("btn-primary");
   startBtn.classList.add("btn-secondary");
   startBtn.innerHTML = "<i class='fas fa-stop'></i> Stop session";
-
   changeQuote();
-  for (i=0; i<6; i++) {
-    window.setTimeout(function() {
+  for (i = 0; i < time * 6; i++) {
+    window.setTimeout(function () {
       if (sessionRunning == true) {
         changeQuote();
         changeBreathe();
       }
       window.setTimeout(changeBreathe, 4000);
-    }, i*10000);
+    }, i * 10000);
   }
-  /*for (i=0; i<5; i++) {
-    if (sessionRunning == true)
-    window.setTimeout(changeQuote, i*10000);
-  }
-  for (i = 0; i < 13; i++) {
-    if (sessionRunning == true)
-    window.setTimeout(changeBreathe, i*5000);
-  }*/
   //End Session
   window.setTimeout(
-    function(){endSession()}, 60000);
+    function () { endSession() }, time * 6 * 10000);
 }
 function stopSession() {
   sessionRunning = false;
+  clearAllTimeouts();
+  breatheStatus = "breathe out...";
   pulser.style.animation = "5s ease-in-out infinite idle";
-  breathe.innerHTML = "Breathe calmly...";
+  leftEye.style.animation = "idle-eyes 8s infinite";
+  rightEye.style.animation = "idle-eyes 8s infinite";
+  smile.classList.remove("smile-animated");
+  dropBtn.style.display = "inline-block";
+  breathe.style.display = "none";
+  breatheText.textContent = "";
+  breatheDone.style.display = "none";
   quote.innerHTML = "";
   quoteAuthor.innerHTML = "";
   startBtn.classList.remove("btn-secondary");
@@ -128,48 +152,102 @@ function stopSession() {
   startBtn.innerHTML = "Start session now <i class='fas fa-arrow-right'></i>";
 }
 
+var breatheStatus = "breathe out...";
 function changeBreathe() {
-
-  if (breatheStatus.localeCompare("Breathe in...") == 0) {
-    breatheStatus = "Breathe out...";
+  if (breatheStatus.localeCompare("breathe in...") == 0) {
+    breatheStatus = "breathe out...";
+    breathe.style.animation = "fadeIn 0.5s";
+    setTimeout(function() {
+      breathe.style.animation = "fadeOutDown 0.5s";
+    }, 5500);
   } else {
-    breatheStatus = "Breathe in...";
+    breatheStatus = "breathe in...";
+    breathe.style.animation = "fadeInUp 0.5s";
+    setTimeout(function() {
+      breathe.style.animation = "fadeOut 0.5s";
+    }, 3500);
   }
-  breathe.innerHTML = breatheStatus;
+  breatheText.textContent = breatheStatus;
 }
 function changeQuote() {
-  var randomNumber = Math.floor(Math.random() * (quotes.length-1))
+  var randomNumber = Math.floor(Math.random() * (quotes.length - 1))
 
   var randomQuote = quotes[randomNumber];
-  if (randomQuote.length >= 75) {quote.style.fontSize="1.25rem";} else {quote.style.fontSize="1.5rem";}
+  if (randomQuote.length >= 75) { quote.style.fontSize = "1.25rem"; } else { quote.style.fontSize = "1.5rem"; }
   quote.innerHTML = "\"" + randomQuote + "\"";
 
   var randomAuthor = quoteAuthors[randomNumber];
   if (randomAuthor.localeCompare("") == 0) {
     quoteAuthor.innerHTML = "";
   }
-    else {
+  else {
     quoteAuthor.innerHTML = "- " + randomAuthor;
   }
-  /*quote.style.animation = "fadeInUp reverse 0.5s";
-  quoteAuthor.style.animation = "fadeInUp reverse 0.5s";
+  quote.style.animation = "fadeInUp 0.5s";
+  quoteAuthor.style.animation = "fadeInUp 0.5s";
   setTimeout(function() {
-    quote.style.animation = "fadeInUp 0.5s";
-    quoteAuthor.style.animation = "fadeInUp 0.5s";
-  }, 500);*/
-  //setTimeout(, i*10000);
+    quote.style.animation = "fadeOutDown 0.5s";
+    quoteAuthor.style.animation = "fadeOutDown 0.5s";
+  }, 9500);
 }
 
 function endSession() {
   if (sessionRunning == true) {
     pulser.style.animation = "5s ease-in-out infinite idle";
-    breathe.innerHTML = "Great job! You're done!";
+    breathe.style.display = "none";
+    leftEye.style.animation = "idle-eyes 8s infinite";
+    rightEye.style.animation = "idle-eyes 8s infinite";
+    smile.classList.remove("smile-animated");
+    breatheDone.style.display = "block";
     quote.innerHTML = "Click \"Restart session\" if you need more peace!";
     quoteAuthor.innerHTML = "";
     startBtn.classList.remove("btn-secondary");
     startBtn.classList.add("btn-primary");
     startBtn.innerHTML = "Restart session <i class='fas fa-arrow-right'></i>";
-    /*quote.style.animation = "fadeInUp reverse 0.5s";
-    quoteAuthor.style.animation = "fadeInUp reverse 0.5s"*/
+    /*quote.style.animation = "fadeOutDown 0.5s";
+    quoteAuthor.style.animation = "fadeOutDown 0.5s"*/
   }
 }
+
+
+function changeTime(opt) {
+  if (opt == 1) time = opt1;
+  else time = opt2;
+  if (time == 1)
+  dropBtn.innerHTML = time + "  Minute  <i class='fas fa-caret-down'></i>";
+  else 
+  dropBtn.innerHTML = time + "  Minutes  <i class='fas fa-caret-down'></i>";
+  if (time == 1) {
+    document.getElementById("opt1").innerHTML = "2 Minutes"; opt1 = 2;
+    document.getElementById("opt2").innerHTML = "5 Minutes"; opt2 = 5;
+  }
+  else if (time == 2) {
+    document.getElementById("opt1").innerHTML = "1 Minute"; opt1 = 1;
+    document.getElementById("opt2").innerHTML = "5 Minutes"; opt2 = 5;
+  }
+  else {
+    document.getElementById("opt1").innerHTML = "1 Minute"; opt1 = 1;
+    document.getElementById("opt2").innerHTML = "2 Minutes"; opt2 = 2;
+  }
+}
+
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function dropDown() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+

@@ -1,29 +1,38 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="style.css">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- Fontawesome-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-    <link rel="icon"
-      type="image/png"
-      href="coronavirus.png">
-    <title>Breathe</title>
-  </head>
-  <body id="bootstrap-overrides" class="container" style = " background: linear-gradient(45deg, var(--blue-2), var(--blue-3) 50%)">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <button type="button" id="startBtn" onclick="checkRunning()" class="btn btn-primary btn-lg">
-      Start session now
-      <i class="fas fa-arrow-right"></i>
-    </button>
-
+	<link rel="stylesheet" href="style.css">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	 crossorigin="anonymous">
+	<!-- Fontawesome-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+	<link rel="icon" type="image/png" href="coronavirus.png">
+	<title>Breathe</title>
+</head>
+<!--I changed the linear gradient back but I changed the svg... is that ok?-->
+<body id="bootstrap-overrides" class="container" style=" background: linear-gradient(45deg, #75C1F7, #D5F3FE 50%);" >
+	<button type="button" id="startBtn" onclick="checkRunning()" class="btn btn-primary btn-lg btn-grad">
+    Start session now
+    <i class="fas fa-arrow-right"></i>
+  </button>
+  <div id = "MinOpt">
+    <button type = "button" id = "dropBtn" onclick = "dropDown()" class = "btn btn-secondary dropBtn" >1 Minute 
+  <i class="fas fa-caret-down"></i>
+  </button>
+  <div id = "dropDownMenu" class="dropdown-content">
+    <a id = "opt1" onclick="changeTime(1)">2 Minutes</a>
+      <a id = "opt2" onclick="changeTime(2)">5 Minutes</a>
+    </div>
+  </div>
     <div class = "above">
-      <h3 class="fadeIn" id="breathe">Breathe calmly...</h3>
+      <svg id="breathe-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="-3 -3 409 114" width="409pt" height="114pt"><defs><filter id="RfKWoWzz7j32pGXx6Q6rtHFL1UuPQsLT" x="-200%" y="-200%" width="400%" height="400%" filterUnits="objectBoundingBox" color-interpolation-filters="sRGB"><feOffset xmlns="http://www.w3.org/2000/svg" in="SourceGraphic" dx="-2" dy="-2"/><feGaussianBlur xmlns="http://www.w3.org/2000/svg" stdDeviation="2.146804531419514" result="pf_100_offsetBlur"/><feComposite xmlns="http://www.w3.org/2000/svg" in="SourceGraphic" in2="pf_100_offsetBlur" result="pf_100_inverse" operator="out"/><feFlood xmlns="http://www.w3.org/2000/svg" flood-color="#6DBDF7" flood-opacity="1" result="pf_100_color"/><feComposite xmlns="http://www.w3.org/2000/svg" in="pf_100_color" in2="pf_100_inverse" operator="in" result="pf_100_shadow"/><feComposite xmlns="http://www.w3.org/2000/svg" in="pf_100_shadow" in2="SourceGraphic" operator="over"/></filter></defs><g filter="url(#RfKWoWzz7j32pGXx6Q6rtHFL1UuPQsLT)"><text transform="matrix(1,0,0,1,1.5,95.316)" id = "breathe-text" style="font-family:'Pacifico';font-weight:400;font-size:72px;font-style:normal;fill:#ffffff;stroke:none;">breathe out...</text></g></svg>
+      <h3 class="fadeIn" id="breathe-done">Great job! You're done!</h3>
     </div>
     <div id="breath-pulser">
       <div id="face">
