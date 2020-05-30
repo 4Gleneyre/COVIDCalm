@@ -33,6 +33,7 @@ body, html {
 }
 #bootstrap-overrides .btn {
   font-family: 'Quicksand', sans-serif;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
 }
 #bootstrap-overrides .btn-lg {
   padding-left: 2rem;
@@ -219,7 +220,7 @@ body, html {
   height: 10%;
   border-radius: 50%;
   background-color: var(--blue-4);
-  animation: idle-eyes ease 8s infinite;
+  animation: idle-eyes ease 4s infinite;
 }
 #right-eye {
   position: absolute;
@@ -230,7 +231,7 @@ body, html {
   height: 10%;
   border-radius: 50%;
   background-color: var(--blue-4);
-  animation: idle-eyes ease 8s infinite;
+  animation: idle-eyes ease 4s infinite;
 }
 
 @keyframes idle-eyes {
@@ -283,16 +284,15 @@ body, html {
   top: 65%;
   left: 55%;
   transform: translate(-50%, -50%);
-  height: 10%;
-  width: 20%;
-  border-radius: 50%;
-  border-bottom: var(--blue-5) 4px solid;
-}
-#smile.smile-animated {
   width: 15%;
   height: 7%;
   background-color: var(--blue-5);
-  border: none;
+  border-radius: 10%;
+  border-bottom-left-radius: 50% 90%;
+  border-bottom-right-radius: 50% 90%;
+  transform: translate(-50%, -50%);
+}
+#smile.smile-animated {
   border-radius: 10%;
   border-bottom-left-radius: 50% 90%;
   border-bottom-right-radius: 50% 90%;
@@ -308,7 +308,7 @@ body, html {
   } 40% {
     height: 3%;
     border-radius: 100px;
-    transform: translate(-50%, -200%);
+    transform: translate(-50%, -100%);
   } 50% {
     height: 7%;
     border-radius: 10%;
@@ -342,7 +342,7 @@ footer {
   display: block;
 }
 #MinOpt a:hover {
-  background-color: #ddd; 
+  background-color: #ddd;
   color:black;
   text-decoration:none;
   }
@@ -354,16 +354,13 @@ footer {
 .show {display: block;}
 
 .dropBtn {
-min-width: 130px !important;
+  min-width: 130px !important;
 }
 
 body{
  animation: fadeIn ease 1s;
 }
 
-.btn-grad {
-  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);}
-
-  #breathe-text {
-    text-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
-  }
+#breathe-text {
+  text-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+}
